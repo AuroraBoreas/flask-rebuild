@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block h1 %}
+<div class="container">
+    <h1>Todo Master</h1>
+</div>
+{% endblock h1 %}
+
+{% block form %}
+<form action="/" method="POST">
+    <div class="form-row align-items-center">
+        <div class="col-auto">
+            <label class="sr-only" for="inlineFormInput">Task</label>
+            <input type="text" class="form-control mb-2" name="content" placeholder="Enter your task" autofocus>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+        </div>
+    </div>
+</form>
+{% endblock form %}
+
+{% block table %}
+    {% if tasks|length < 1 %}
+    <h1>Add your task above :^)</h1>
+    {% else %}
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Task</th>
+                <th scope="col">Date</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <th scope="row">{{ task.id_ }}</th>
+                <td>{{ task.content }}</td>
+                <td>{{ task.date_created.strftime("%Y-%m-%d %H:%M:%S") }}</td>
+                <td>
+                    <a href="/delete/{{ task.id_ }}">Delete</a>
+                    <br>
+                    <a href="/update/{{ task.id_ }}">Update</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+{% endblock table %}
